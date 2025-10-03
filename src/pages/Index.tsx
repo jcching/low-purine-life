@@ -1,7 +1,6 @@
 import { Activity, BarChart3, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FoodSearch } from "@/components/FoodSearch";
 import { FoodLog } from "@/components/FoodLog";
 import { StatsCard } from "@/components/StatsCard";
@@ -36,6 +35,14 @@ const Index = () => {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-6 max-w-4xl">
+        {/* Search & Add Foods */}
+        <section className="mb-8">
+          <Card className="p-6">
+            <h2 className="text-lg font-semibold mb-4">Search & Add Foods</h2>
+            <FoodSearch onAddFood={addEntry} />
+          </Card>
+        </section>
+
         {/* Daily Overview */}
         <section className="mb-8">
           <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
@@ -78,32 +85,16 @@ const Index = () => {
           </div>
         </Card>
 
-        {/* Food Tracking Tabs */}
-        <Tabs defaultValue="add" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="add">Add Food</TabsTrigger>
-            <TabsTrigger value="log">
-              Food Log ({stats.todayEntries.length})
-            </TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="add" className="space-y-4">
-            <Card className="p-6">
-              <h2 className="text-lg font-semibold mb-4">Search & Add Foods</h2>
-              <FoodSearch onAddFood={addEntry} />
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="log" className="space-y-4">
-            <div>
-              <h2 className="text-lg font-semibold mb-4">Today's Foods</h2>
-              <FoodLog 
-                entries={stats.todayEntries} 
-                onDeleteEntry={deleteEntry}
-              />
-            </div>
-          </TabsContent>
-        </Tabs>
+        {/* Food Log */}
+        <section>
+          <h2 className="text-lg font-semibold mb-4">
+            Today's Foods ({stats.todayEntries.length})
+          </h2>
+          <FoodLog 
+            entries={stats.todayEntries} 
+            onDeleteEntry={deleteEntry}
+          />
+        </section>
       </main>
 
       {/* Footer */}
